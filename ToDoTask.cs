@@ -1,0 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ToDoList
+{
+     public class TodoTask
+    {
+        public string Title { get; set; }
+        public bool IsCompleted { get; set; }
+    }
+}
