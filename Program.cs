@@ -61,7 +61,7 @@ while (option != 6)
             int completedTaskIndex = int.TryParse(Console.ReadLine(), out completedTaskIndex) ? completedTaskIndex : 0;
             if (completedTaskIndex <= tasks.Count && completedTaskIndex > 0)
             {
-                tasks[completedTaskIndex -1].IsCompleted = !tasks[completedTaskIndex - 1].IsCompleted;
+                tasks[completedTaskIndex - 1].IsCompleted = !tasks[completedTaskIndex - 1].IsCompleted;
                 Console.WriteLine($"Task updated: {tasks[completedTaskIndex - 1].Title}");
             }
             else
@@ -105,6 +105,48 @@ while (option != 6)
         }
     }
 
+    void RenameTask()
+    {
+        if (tasks.Count <= 0)
+        {
+            Console.WriteLine("No tasks to rename");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        else
+        {
+            Console.WriteLine("Tasks: ");
+            for (int i = 0; i < tasks.Count; i++)
+            {
+                string status = tasks[i].IsCompleted ? "[X]" : "[ ]";
+                Console.WriteLine($"{i + 1}. {status} {tasks[i].Title}");
+            }
+            Console.Write("Choose a task to rename: ");
+            int taskIndex = int.TryParse(Console.ReadLine(), out taskIndex) ? taskIndex : 0;
+            if (taskIndex >= 1 && taskIndex <= tasks.Count)
+            {
+                Console.WriteLine("Write how you want to rename it:");
+                string newTitle = Console.ReadLine();
+                TodoTask selecetdTask = tasks[taskIndex - 1];
+                selecetdTask.Title = newTitle;
+                Console.WriteLine("Your task has been renamed.");
+                for (int i = 0; i < tasks.Count; i++)
+                {
+                    string status = tasks[i].IsCompleted ? "[X]" : "[ ]";
+                    Console.WriteLine($"{i + 1}. {status} {tasks[i].Title}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid task index.");
+            }
+
+
+            Console.ReadKey();
+            Console.Clear();
+        }
+    }
+
     switch (option)
     {
         case 1:
@@ -118,6 +160,9 @@ while (option != 6)
             break;
         case 4:
             CompleteTask();
+            break;
+        case 5:
+            RenameTask();
             break;
         case 6:
             Console.WriteLine("Exiting...");
