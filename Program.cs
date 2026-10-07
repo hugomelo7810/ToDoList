@@ -130,11 +130,6 @@ while (option != 6)
                 TodoTask selecetdTask = tasks[taskIndex - 1];
                 selecetdTask.Title = newTitle;
                 Console.WriteLine("Your task has been renamed.");
-                for (int i = 0; i < tasks.Count; i++)
-                {
-                    string status = tasks[i].IsCompleted ? "[X]" : "[ ]";
-                    Console.WriteLine($"{i + 1}. {status} {tasks[i].Title}");
-                }
             }
             else
             {
@@ -166,7 +161,7 @@ while (option != 6)
             break;
         case 6:
             Console.WriteLine("Exiting...");
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
             break;
         default:
             Console.WriteLine("Invalid option.");
