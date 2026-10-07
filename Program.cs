@@ -18,8 +18,13 @@ while (option != 6)
     {
         Console.WriteLine("Write a task:");
         string task = Console.ReadLine();
-        tasks.Add(new TodoTask { Title = task, IsCompleted = false });
+        tasks.Add(new TodoTask 
+        { Title = task,
+          IsCompleted = false,
+          WhenCreated = DateTime.Now
+        });
         Console.WriteLine($"Task created: {task}");
+        Console.WriteLine($"Created in: {DateTime.Now}");
         Console.ReadKey();
         Console.Clear();
     }
@@ -36,7 +41,7 @@ while (option != 6)
             for (int i = 0; i < tasks.Count; i++)
             {
                 string status = tasks[i].IsCompleted ? "[X]" : "[ ]";
-                Console.WriteLine($"{i + 1}. {status} {tasks[i].Title}");
+                Console.WriteLine($"{i + 1}. {status} {tasks[i].Title}, criated in: {tasks[i].WhenCreated}");
             }
         }
         Console.ReadKey();
@@ -57,7 +62,7 @@ while (option != 6)
                 string status = tasks[i].IsCompleted ? "[X]" : "[ ]";
                 Console.WriteLine($"{i + 1}. {status} {tasks[i].Title}");
             }
-            Console.Write("Choose a task to complete: ");
+            Console.Write("Choose a task to complete or reopen: ");
             int completedTaskIndex = int.TryParse(Console.ReadLine(), out completedTaskIndex) ? completedTaskIndex : 0;
             if (completedTaskIndex <= tasks.Count && completedTaskIndex > 0)
             {
