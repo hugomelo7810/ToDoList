@@ -3,6 +3,7 @@ Console.WriteLine("Welcome to the ToDo List!");
 int option = 0;
 List<TodoTask> tasks = new List<TodoTask>();
 
+
 while (option != 6)
 {
     Console.WriteLine("1. Create task");
@@ -16,15 +17,39 @@ while (option != 6)
 
     void CreateTask()
     {
-        Console.WriteLine("Write a task:");
+        Console.Write("Write a task: ");
         string task = Console.ReadLine();
-        tasks.Add(new TodoTask 
-        { Title = task,
-          IsCompleted = false,
-          WhenCreated = DateTime.Now
+
+        Console.Write("Write when your task finish (dd/MM/yyyy): ");
+
+        if (DateTime.TryParseExact(
+            Console.ReadLine(),
+            "dd/MM/yyyy",
+            null,
+            System.Globalization.DateTimeStyles.None,
+            out DateTime taskFinish))
+        {
+            Console.WriteLine($"Expected of finish:{taskFinish: dd/MM/yyyy}");
+        }
+        else
+        {
+            Console.Write("Invalide date! Write like this (dd/MM/yyyy):");
+            Console.ReadKey();
+            Console.Clear();
+            return;
+        }
+
+        tasks.Add(new TodoTask
+        {
+            Title = task,
+            IsCompleted = false,
+            WhenFinish = taskFinish,
+            WhenCreated = DateTime.Now
         });
+
         Console.WriteLine($"Task created: {task}");
         Console.WriteLine($"Created in: {DateTime.Now}");
+
         Console.ReadKey();
         Console.Clear();
     }
@@ -41,7 +66,7 @@ while (option != 6)
             for (int i = 0; i < tasks.Count; i++)
             {
                 string status = tasks[i].IsCompleted ? "[X]" : "[ ]";
-                Console.WriteLine($"{i + 1}. {status} {tasks[i].Title}, criated in: {tasks[i].WhenCreated}");
+                Console.WriteLine($"{i + 1}. {status} {tasks[i].Title}, criated in: {tasks[i].WhenCreated}, expected of finish: {tasks[i].WhenFinish:dd/MM/yyyy}");
             }
         }
         Console.ReadKey();
@@ -67,7 +92,7 @@ while (option != 6)
             if (completedTaskIndex <= tasks.Count && completedTaskIndex > 0)
             {
                 tasks[completedTaskIndex - 1].IsCompleted = !tasks[completedTaskIndex - 1].IsCompleted;
-                Console.WriteLine($"Task updated: {tasks[completedTaskIndex - 1].Title}");
+                Console.WriteLine($"Task updated: {tasks[completedTaskIndex - 1].Title} in {DateTime.Now}");
             }
             else
             {

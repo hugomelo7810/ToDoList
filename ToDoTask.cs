@@ -8,6 +8,7 @@ namespace ToDoList
     {
         public string Title { get; set; }
         public bool IsCompleted { get; set; }
+        public DateTime WhenFinish { get; set; }
         public DateTime WhenCreated { get; set; }
     }
 }
